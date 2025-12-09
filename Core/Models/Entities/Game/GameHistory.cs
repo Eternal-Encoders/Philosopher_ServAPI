@@ -4,7 +4,7 @@ namespace Philosopher_ServAPI.Core.Models.Entities.Game
 {
     public class GameHistory : IAggregateRoot
     {
-        public required Guid Id { get; set; }
+        public Guid Id { get; set; }
 
         public required Guid UserId { get; set; }
         public User? User { get; set; }

@@ -8,16 +8,16 @@ namespace Philosopher_ServAPI.Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.HasKey(u => u.Id);
+            //builder.HasKey(u => u.Id);
 
-            builder.HasMany(u => u.GameHistories)
-                .WithOne(h => h.User)
-                .HasForeignKey(h => h.UserId);
+            //builder.HasMany(u => u.GameHistories)
+            //    .WithOne(h => h.User)
+            //    .HasForeignKey(h => h.UserId);
 
-            builder.HasOne(u => u.ActualGameHistory)
-                .WithOne()
-                .HasForeignKey<User>(p => p.ActualGameHistoryId)
-                .IsRequired(false);
+            //builder.HasOne(u => u.ActualGameHistory)
+            //    .WithOne()
+            //    .HasForeignKey<User>(p => p.ActualGameHistoryId)
+            //    .IsRequired(false);
         }
     }
 }

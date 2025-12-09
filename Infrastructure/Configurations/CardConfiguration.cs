@@ -8,11 +8,11 @@ namespace Philosopher_ServAPI.Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<Card> builder)
         {
-            builder.HasKey(c => c.Id);
+            //builder.HasKey(c => c.Id);
 
-            builder.HasMany(c => c.GameHistories)
-                .WithOne(h => h.Card)
-                .HasForeignKey(h => h.CardId);
+            //builder.HasMany(c => c.GameHistories)
+            //    .WithOne(h => h.Card)
+            //    .HasForeignKey(h => h.CardId);
         }
     }
 }

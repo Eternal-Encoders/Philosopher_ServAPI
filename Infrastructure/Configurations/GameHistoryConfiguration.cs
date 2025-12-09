@@ -8,7 +8,7 @@ namespace Philosopher_ServAPI.Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<GameHistory> builder)
         {
-            builder.HasKey(h => h.Id);
+            //builder.HasKey(h => h.Id);
         }
     }
 }

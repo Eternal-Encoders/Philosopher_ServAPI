@@ -1,19 +1,30 @@
-﻿using Philosopher_ServAPI.Infrastructure.Repositories;
+﻿using AutoMapper;
+using Philosopher_ServAPI.Core.Models.DTOs;
+using Philosopher_ServAPI.Core.Models.Entities;
+using Philosopher_ServAPI.Core.Repositories;
+using Philosopher_ServAPI.Helpers.Exceptions;
 
 namespace Philosopher_ServAPI.Application
 {
     public class UserService
     {
-        private readonly UserRepository _repository;
+        private readonly IUserRepository _repository;
+        readonly IMapper _mapper;
 
-        public UserService(UserRepository repository) 
+        public UserService(IUserRepository repository, IMapper mapper) 
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
-        public async UserDto GetUserById(Guid id)
+        public async Task<GetUserDto> GetUserById(Guid id)
         {
+            var user = await _repository.FirstOrDefaultAsync(u => u.Id == id) 
+                ?? throw new NotFoundException($"User with id {id} is not found");
 
+            var userDto = _mapper.Map<User,GetUserDto>(user);
+
+            return userDto;
         }
     }
 }
