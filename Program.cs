@@ -43,10 +43,16 @@ builder.Services.AddAutoMapper(config =>
     config.AddMaps(typeof(Program).Assembly);
 });
 
-builder.Services.AddDbContext<PostgresDBContext>(
+//builder.Services.AddDbContext<SQLDBContext>(
+//    options =>
+//    {
+//        options.UseNpgsql(configuration.GetConnectionString("Postgres"));
+//    });
+
+builder.Services.AddDbContext<SqlDbContext>(
     options =>
     {
-        options.UseNpgsql(configuration.GetConnectionString("Postgres"));
+        options.UseSqlite(configuration.GetConnectionString("SQLite"));
     });
 
 // Репозитории

@@ -22,6 +22,6 @@ namespace Philosopher_ServAPI.Core.Models.Entities
         //[ForeignKey(nameof(ActualGameHistoryId))]
         //public GameHistory? ActualGameHistory { get; set; }
 
-        public ICollection<GameHistory> GameHistories { get; set; } = [];
+        public ICollection<LevelProgress> GameHistories { get; set; } = [];
     }
 }

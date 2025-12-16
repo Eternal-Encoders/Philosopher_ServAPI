@@ -3,7 +3,7 @@ using Philosopher_ServAPI.Core.Repositories;
 
 namespace Philosopher_ServAPI.Infrastructure.Repositories
 {
-    public class UserRepository(PostgresDBContext dBContext) : PostgresRepository<User>(dBContext), IUserRepository
+    public class UserRepository(SqlDbContext dBContext) : SqlRepository<User>(dBContext), IUserRepository
     {
     }
 }

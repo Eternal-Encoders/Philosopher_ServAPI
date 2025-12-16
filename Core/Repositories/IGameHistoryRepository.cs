@@ -3,7 +3,7 @@ using Philosopher_ServAPI.Core.Shared.Database;
 
 namespace Philosopher_ServAPI.Core.Repositories
 {
-    public interface IGameHistoryRepository : IRepository<GameHistory>
+    public interface IGameHistoryRepository : IRepository<LevelProgress>
     {
     }
 }

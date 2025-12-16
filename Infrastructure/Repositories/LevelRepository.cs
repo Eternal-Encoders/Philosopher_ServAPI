@@ -3,7 +3,7 @@ using Philosopher_ServAPI.Core.Repositories;
 
 namespace Philosopher_ServAPI.Infrastructure.Repositories
 {
-    public class LevelRepository(PostgresDBContext dBContext) : PostgresRepository<Level>(dBContext), ILevelRepository
+    public class LevelRepository(SqlDbContext dBContext) : SqlRepository<Level>(dBContext), ILevelRepository
     {
     }
 }

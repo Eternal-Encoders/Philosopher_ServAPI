@@ -6,17 +6,20 @@ using Philosopher_ServAPI.Infrastructure.Configurations;
 
 namespace Philosopher_ServAPI.Infrastructure
 {
-    public class PostgresDBContext : DbContext
+    public class SqlDbContext : DbContext
     {
         public DbSet<Card> Cards { get; set; }
         public DbSet<Level> Levels { get; set; }
-        public DbSet<GameHistory> GameHistories { get; set; }
+        public DbSet<LevelProgress> GameHistories { get; set; }
         //Если нужно будет вести историю ходов
         //public DbSet<GameStep> GameSteps { get; set; }
 
-        public PostgresDBContext(DbContextOptions<PostgresDBContext> dbContextOptions) : base(dbContextOptions)
+        public SqlDbContext(DbContextOptions<SqlDbContext> dbContextOptions,
+            IWebHostEnvironment env) : base(dbContextOptions)
         {
-            Database.EnsureDeleted(); //Для пересоздания БД
+            if (env.IsDevelopment())
+                Database.EnsureDeleted();
+
             Database.EnsureCreated();
         }
 

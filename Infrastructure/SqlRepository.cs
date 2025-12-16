@@ -6,16 +6,16 @@ using System.Linq.Expressions;
 
 namespace Philosopher_ServAPI.Infrastructure
 {
-    public class PostgresRepository<TAggregateRoot> : IRepository<TAggregateRoot> where TAggregateRoot : class, 
+    public class SqlRepository<TAggregateRoot> : IRepository<TAggregateRoot> where TAggregateRoot : class, 
         IAggregateRoot
     {
         public bool ReadOnly { get; }
 
-        private readonly PostgresDBContext _dBContext;
+        private readonly DbContext _dBContext;
         private DbSet<TAggregateRoot> Items => _dBContext.Set<TAggregateRoot>();
         //protected virtual IQueryable<TAggregateRoot> Items => ReadOnly ? _items.AsNoTracking() : _items;
 
-        public PostgresRepository(PostgresDBContext dBContext, bool readOnly = false)
+        public SqlRepository(DbContext dBContext, bool readOnly = false)
         {
             _dBContext = dBContext;
             ReadOnly = readOnly;

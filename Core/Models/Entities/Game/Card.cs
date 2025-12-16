@@ -21,16 +21,16 @@ namespace Philosopher_ServAPI.Core.Models.Entities.Game
         public int Number { get; set; }
 
         [Column("name")]
-        public string Name { get; set; } = String.Empty;
+        public string Name { get; set; } = string.Empty;
 
         [Column("text")]
-        public string Text { get; set; } = String.Empty;
+        public string Text { get; set; } = string.Empty;
 
         [Column("first_choice_text")]
-        public string FirstChoiceText { get; set; } = String.Empty;
+        public string FirstChoiceText { get; set; } = string.Empty;
 
         [Column("second_choice_text")]
-        public string SecondChoiceText { get; set; } = String.Empty;
+        public string SecondChoiceText { get; set; } = string.Empty;
 
         [Column("first_hum_delta")]
         public required double HumanityDelta1 { get; set; }
@@ -45,6 +45,6 @@ namespace Philosopher_ServAPI.Core.Models.Entities.Game
         public required double RobotificationDelta2 { get; set; }
 
         [Column("image_link")]
-        public string ImageLink { get; set; } = String.Empty;
+        public string ImageLink { get; set; } = string.Empty;
     }
 }

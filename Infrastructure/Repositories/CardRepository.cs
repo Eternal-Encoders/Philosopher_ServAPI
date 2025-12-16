@@ -4,7 +4,7 @@ using Philosopher_ServAPI.Core.Repositories;
 
 namespace Philosopher_ServAPI.Infrastructure.Repositories
 {
-    public class CardRepository(PostgresDBContext dBContext) : PostgresRepository<Card>(dBContext), ICardRepository
+    public class CardRepository(SqlDbContext dBContext) : SqlRepository<Card>(dBContext), ICardRepository
     {
     }
 }

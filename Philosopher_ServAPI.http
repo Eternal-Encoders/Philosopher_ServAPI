@@ -1,6 +1,0 @@
-@Philosopher_ServAPI_HostAddress = http://localhost:5116
-
-GET {{Philosopher_ServAPI_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

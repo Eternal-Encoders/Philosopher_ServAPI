@@ -4,7 +4,7 @@ using Philosopher_ServAPI.Core.Repositories;
 
 namespace Philosopher_ServAPI.Infrastructure.Repositories
 {
-    public class GameHistoryRepository(PostgresDBContext dBContext) : PostgresRepository<GameHistory>(dBContext), IGameHistoryRepository
+    public class GameHistoryRepository(SqlDbContext dBContext) : SqlRepository<LevelProgress>(dBContext), IGameHistoryRepository
     {
     }
 }

@@ -17,7 +17,7 @@ namespace Philosopher_ServAPI.Application
 
         public async Task CreateTextSections()
         {
-            string text = File.ReadAllText("study_fies.md");
+            string text = File.ReadAllText("wwwroot/study_fies.md");
             List<TextSection> list = [];
 
             MatchCollection matches = Regex.Matches(Regex.Replace(text, @"![[]][(].*[)]", ""), @"[#]+\s.+\n");
