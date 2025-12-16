@@ -17,8 +17,8 @@ namespace Philosopher_ServAPI.Infrastructure
         public SqlDbContext(DbContextOptions<SqlDbContext> dbContextOptions,
             IWebHostEnvironment env) : base(dbContextOptions)
         {
-            if (env.IsDevelopment())
-                Database.EnsureDeleted();
+            //if (env.IsDevelopment())
+            //    Database.EnsureDeleted();
 
             Database.EnsureCreated();
         }
