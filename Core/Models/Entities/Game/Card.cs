@@ -32,17 +32,17 @@ namespace Philosopher_ServAPI.Core.Models.Entities.Game
         [Column("second_choice_text")]
         public string SecondChoiceText { get; set; } = string.Empty;
 
-        [Column("first_hum_delta")]
-        public required double HumanityDelta1 { get; set; }
+        [Column("first_human_delta")]
+        public int HumanDelta1 { get; set; } = 0;
 
-        [Column("second_hum_delta")]
-        public required double HumanityDelta2 { get; set; }
+        [Column("second_human_delta")]
+        public int HumanDelta2 { get; set; } = 0;
 
-        [Column("first_rob_delta")]
-        public required double RobotificationDelta1 { get; set; }
+        [Column("first_robot_delta")]
+        public int RobotDelta1 { get; set; } = 0;
 
-        [Column("second_rob_delta")]
-        public required double RobotificationDelta2 { get; set; }
+        [Column("second_robot_delta")]
+        public int RobotDelta2 { get; set; } = 0;
 
         [Column("image_link")]
         public string ImageLink { get; set; } = string.Empty;

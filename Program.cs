@@ -75,7 +75,7 @@ app.UseRouting();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.MapOpenApi("/docs");
 }
 
 app.UseCors("test");

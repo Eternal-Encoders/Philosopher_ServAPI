@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using Philosopher_ServAPI.Core.Models.Entities;
+using Philosopher_ServAPI.Core.Models.Entities.Book;
 using Philosopher_ServAPI.Core.Models.Entities.Game;
 using Philosopher_ServAPI.Infrastructure.Configurations;
 
@@ -10,7 +11,9 @@ namespace Philosopher_ServAPI.Infrastructure
     {
         public DbSet<Card> Cards { get; set; }
         public DbSet<Level> Levels { get; set; }
-        public DbSet<LevelProgress> GameHistories { get; set; }
+        public DbSet<GameProgress> GameProgresses { get; set; }
+        public DbSet<LevelEnding> LevelEndings { get; set; }
+        public DbSet<TextSection> TextSections { get; set; }
         //Если нужно будет вести историю ходов
         //public DbSet<GameStep> GameSteps { get; set; }
 

@@ -4,9 +4,9 @@ using Philosopher_ServAPI.Core.Models.Entities.Game;
 
 namespace Philosopher_ServAPI.Infrastructure.Configurations
 {
-    public class GameHistoryConfiguration : IEntityTypeConfiguration<LevelProgress>
+    public class GameHistoryConfiguration : IEntityTypeConfiguration<GameProgress>
     {
-        public void Configure(EntityTypeBuilder<LevelProgress> builder)
+        public void Configure(EntityTypeBuilder<GameProgress> builder)
         {
             //builder.HasKey(h => h.Id);
         }

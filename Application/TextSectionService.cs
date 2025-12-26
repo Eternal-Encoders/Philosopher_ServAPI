@@ -35,14 +35,15 @@ namespace Philosopher_ServAPI.Application
 
             if (list.Count > 0)
             {
-                await _repository.AddRangeAsync(list);
+                await Task.Run(() => _repository.AddRangeAsync(list))
+                .ContinueWith(t => _repository.SaveChanges());
             }
         }
 
-        public async Task CreateTextSectionsFromText(IFormFile file)
-        {
+        //public async Task CreateTextSectionsFromText(IFormFile file)
+        //{
 
-        }
+        //}
 
         public async Task<TextSection> GetTextSectionById(Guid id)
         {

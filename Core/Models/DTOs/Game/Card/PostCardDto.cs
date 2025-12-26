@@ -28,19 +28,19 @@ namespace Philosopher_ServAPI.Core.Models.DTOs.Game.Card
 
         [Required]
         [JsonPropertyName("first_hum_delta")]
-        public required double HumanityDelta1 { get; set; }
+        public required int HumanityDelta1 { get; set; }
 
         [Required]
         [JsonPropertyName("second_hum_delta")]
-        public required double HumanityDelta2 { get; set; }
+        public required int HumanityDelta2 { get; set; }
 
         [Required]
         [JsonPropertyName("first_rob_delta")]
-        public required double RobotificationDelta1 { get; set; }
+        public required int RobotificationDelta1 { get; set; }
 
         [Required]
         [JsonPropertyName("second_rob_delta")]
-        public required double RobotificationDelta2 { get; set; }
+        public required int RobotificationDelta2 { get; set; }
 
         [JsonPropertyName("image_link")]
         public string ImageLink { get; set; } = String.Empty;

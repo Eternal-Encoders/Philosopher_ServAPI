@@ -21,14 +21,40 @@ namespace Philosopher_ServAPI.Application
         public async Task CreateCard(PostCardDto cardDto)
         {
             Card card = _mapper.Map<PostCardDto, Card>(cardDto);
+            int counter = 1;
 
             if (await _repository.CountAsync(c => c.Number == cardDto.Number &&
                 c.LevelId == cardDto.LevelId) > 0)
-                throw new AlreadyExistsException(
-                    $"Card with number {cardDto.Number} and level ID {cardDto.LevelId} already exists");
+            {
+                //throw new AlreadyExistsException(
+                //    $"Card with number {cardDto.Number} and level ID {cardDto.LevelId} already exists");
+                var lateCards = await _repository.ListAsync(c => c.Number > cardDto.Number);
 
-            await Task.Run(() => _repository.AddAsync(card))
-                .ContinueWith(t => _repository.SaveChanges());
+                if (lateCards.Count != 0)
+                {
+                    foreach (var lateCard in lateCards)
+                    {
+                        lateCard.Number++;
+                    }
+                }
+            }
+
+            await _repository.AddAsync(card);
+
+            if (await _repository.CountAsync(c => c.LevelId == cardDto.LevelId) > 0)
+            {
+                foreach (var number in await _repository.ListOfNumbers(
+                    c => c.LevelId == cardDto.LevelId))
+                {
+                    if (number != counter)
+                        throw new WrongInputException(
+                            $"Missing card with number {counter} and level ID {cardDto.LevelId}");
+
+                    counter++;
+                }
+            }
+
+            await _repository.SaveChanges();
 
             //Альтернатива:
             //await _repository.AddAsync(card);

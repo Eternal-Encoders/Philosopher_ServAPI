@@ -28,5 +28,7 @@ namespace Philosopher_ServAPI.Core.Models.Entities.Game
         public TextSection? TextSection { get; set; }
 
         public ICollection<Card> Cards { get; set; } = [];
+
+        public ICollection<LevelEnding> LevelEndings { get; set; } = [];
     }
 }

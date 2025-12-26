@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Philosopher_ServAPI.Core.Models.Entities.Game
 {
-    public class LevelProgress : IAggregateRoot
+    public class GameProgress : IAggregateRoot
     {
         [Key]
         [Column("id")]
@@ -31,11 +31,11 @@ namespace Philosopher_ServAPI.Core.Models.Entities.Game
         [ForeignKey("last_card_id")]
         public Card? Card { get; set; }
 
-        [Column("humanity")]
-        public double Humanity { get; set; } = 50;
+        [Column("human")]
+        public int Humanity { get; set; } = 50;
 
-        [Column("robotification")]
-        public double Robotification { get; set; } = 50;
+        [Column("robot")]
+        public int Robotification { get; set; } = 50;
 
         [Column("step_number")]
         public int StepNumber { get; set; } = 1;

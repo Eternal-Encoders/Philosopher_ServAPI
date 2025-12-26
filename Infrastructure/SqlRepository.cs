@@ -12,7 +12,7 @@ namespace Philosopher_ServAPI.Infrastructure
         public bool ReadOnly { get; }
 
         private readonly DbContext _dBContext;
-        private DbSet<TAggregateRoot> Items => _dBContext.Set<TAggregateRoot>();
+        public DbSet<TAggregateRoot> Items => _dBContext.Set<TAggregateRoot>();
         //protected virtual IQueryable<TAggregateRoot> Items => ReadOnly ? _items.AsNoTracking() : _items;
 
         public SqlRepository(DbContext dBContext, bool readOnly = false)
