@@ -8,11 +8,11 @@ namespace Philosopher_ServAPI.Application
 {
     public class TextSectionService
     {
-        private readonly ITextSectionRepository _repository;
+        private readonly ITextSectionRepository _textSectionRep;
 
-        public TextSectionService(ITextSectionRepository repository)
+        public TextSectionService(ITextSectionRepository textSectionRep)
         {
-            _repository = repository;
+            _textSectionRep = textSectionRep;
         }
 
         public async Task CreateTextSections()
@@ -35,8 +35,8 @@ namespace Philosopher_ServAPI.Application
 
             if (list.Count > 0)
             {
-                await Task.Run(() => _repository.AddRangeAsync(list))
-                .ContinueWith(t => _repository.SaveChanges());
+                await _textSectionRep.AddRangeAsync(list);
+                await _textSectionRep.SaveChanges();
             }
         }
 
@@ -47,7 +47,7 @@ namespace Philosopher_ServAPI.Application
 
         public async Task<TextSection> GetTextSectionById(Guid id)
         {
-            var section = await _repository.FirstOrDefaultAsync(c => c.Id == id) ??
+            var section = await _textSectionRep.FirstOrDefaultAsync(c => c.Id == id) ??
                 throw new NotFoundException($"Text section with id {id} is not found");
 
             return section;
@@ -55,9 +55,15 @@ namespace Philosopher_ServAPI.Application
 
         public async Task<IReadOnlyList<TextSection>> GetAllTextSections()
         {
-            var sections = await _repository.ListAsync();
+            var sections = await _textSectionRep.ListAsync();
 
             return sections ?? [];
+        }
+
+        public async Task DeleteTextSectionById(Guid id)
+        {
+            await _textSectionRep.RemoveAsync(c => c.Id == id);
+            await _textSectionRep.SaveChanges();
         }
     }
 }

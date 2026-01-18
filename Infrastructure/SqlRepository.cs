@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Philosopher_ServAPI.Core.Shared;
 using Philosopher_ServAPI.Core.Shared.Database;
-using System;
 using System.Linq.Expressions;
 
 namespace Philosopher_ServAPI.Infrastructure
@@ -13,6 +12,7 @@ namespace Philosopher_ServAPI.Infrastructure
 
         private readonly DbContext _dBContext;
         public DbSet<TAggregateRoot> Items => _dBContext.Set<TAggregateRoot>();
+        protected virtual IQueryable<TAggregateRoot> ReadItems => ReadOnly ? Items.AsNoTracking() : Items;
         //protected virtual IQueryable<TAggregateRoot> Items => ReadOnly ? _items.AsNoTracking() : _items;
 
         public SqlRepository(DbContext dBContext, bool readOnly = false)
@@ -73,57 +73,49 @@ namespace Philosopher_ServAPI.Infrastructure
 
         public async Task<int> CountAsync()
         {
-            return await Items
-                .AsNoTracking()
+            return await ReadItems
                 .CountAsync();
         }
 
         public async Task<int> CountAsync(Expression<Func<TAggregateRoot, bool>> predicate)
         {
-            return await Items
-                .AsNoTracking()
+            return await ReadItems
                 .CountAsync(predicate);
         }
 
         public async Task<TAggregateRoot> FirstAsync()
         {
-            return await Items
-                .AsNoTracking()
+            return await ReadItems
                 .FirstAsync();
         }
 
         public async Task<TAggregateRoot> FirstAsync(Expression<Func<TAggregateRoot, bool>> predicate)
         {
-            return await Items
-                .AsNoTracking()
+            return await ReadItems
                 .FirstAsync(predicate);
         }
 
         public async Task<TAggregateRoot?> FirstOrDefaultAsync()
         {
-            return await Items
-                .AsNoTracking()
+            return await ReadItems
                 .FirstOrDefaultAsync();
         }
 
         public async Task<TAggregateRoot?> FirstOrDefaultAsync(Expression<Func<TAggregateRoot, bool>> predicate)
         {
-            return await Items
-                .AsNoTracking()
+            return await ReadItems
                 .FirstOrDefaultAsync(predicate);
         }
 
         public async Task<IReadOnlyList<TAggregateRoot>> ListAsync()
         {
-            return await Items
-                .AsNoTracking()
+            return await ReadItems
                 .ToListAsync();
         }
 
         public async Task<IReadOnlyList<TAggregateRoot>> ListAsync(Expression<Func<TAggregateRoot, bool>> predicate)
         {
-            return await Items
-                .AsNoTracking()
+            return await ReadItems
                 .Where(predicate)
                 .ToListAsync();
         }

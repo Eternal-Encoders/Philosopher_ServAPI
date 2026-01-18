@@ -16,15 +16,19 @@ namespace Philosopher_ServAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetLevelById(string id)
+        public async Task<IActionResult> GetLevelById(Guid? id)
         {
-            if (id == null || id == "") return BadRequest("Empty input field");
+            if (id == null) return BadRequest("Id is not specified");
 
-            if (!Guid.TryParse(id, out Guid guid)) return BadRequest(
-                "Specified ID is not valid");
-
-            var level = await _levelService.GetLevelById(guid);
+            var level = await _levelService.GetLevelById((Guid)id);
             return Ok(level);
+        }
+
+        [HttpGet("all")]
+        public async Task<IActionResult> GetAllLevels()
+        {
+            var levels = await _levelService.GetAllLevels();
+            return Ok(levels);
         }
 
         [HttpPost]
@@ -32,8 +36,28 @@ namespace Philosopher_ServAPI.Controllers
         {
             if (levelDto == null) return BadRequest("Empty input field");
 
-            await _levelService.CreateLevel(levelDto);
-            return Ok("Successfully created");
+            var level = await _levelService.CreateLevel(levelDto);
+            return Ok(level);
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteLevel(Guid? id)
+        {
+            if (id == null) return BadRequest("Id is not specified");
+
+            await _levelService.DeleteLevelById((Guid)id);
+            return Ok("Level was deleted");
+        }
+
+        [HttpPatch]
+        public async Task<IActionResult> PatchLevel(
+            [FromBody] UpdateLevelDto? levelDto, Guid? id)
+        {
+            if (levelDto == null) return BadRequest("Empty input field");
+            if(id == null) return BadRequest("Id is not specified");
+
+            var level = await _levelService.UpdateLevelById(levelDto, (Guid)id);
+            return Ok(level);
         }
     }
 }

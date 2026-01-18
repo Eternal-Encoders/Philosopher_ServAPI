@@ -19,10 +19,10 @@ namespace Philosopher_ServAPI.Core.Models.Entities.Book
         [Column("text")]
         public string Text { get; set; } = String.Empty;
 
-        [Column("type")]
-        public string Type { get; set; } = String.Empty;
+        //[Column("type")]
+        //public string Type { get; set; } = String.Empty;
 
-        [ForeignKey(nameof(Type))]
-        public TextSectionType? SectionType { get; set; }
+        //[ForeignKey(nameof(Type))]
+        //public TextSectionType? SectionType { get; set; }
     }
 }

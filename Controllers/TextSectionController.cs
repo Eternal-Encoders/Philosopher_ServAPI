@@ -16,18 +16,15 @@ namespace Philosopher_ServAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetTextSectionById(string id)
+        public async Task<IActionResult> GetTextSectionById(Guid? id)
         {
-            if (id == null || id == "") return BadRequest("Empty input field");
+            if (id == null) return BadRequest("Id is not specified");
 
-            if (!Guid.TryParse(id, out Guid guid)) return BadRequest(
-                "Specified ID is not valid");
-
-            var textSection = await _textSectionService.GetTextSectionById(guid);
+            var textSection = await _textSectionService.GetTextSectionById((Guid)id);
             return Ok(textSection);
         }
 
-        [HttpGet]
+        [HttpGet("all")]
         public async Task<IActionResult> GetAllTextSections()
         {
             var textSections = await _textSectionService.GetAllTextSections();

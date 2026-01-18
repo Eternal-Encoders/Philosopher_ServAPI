@@ -14,7 +14,7 @@ namespace Philosopher_ServAPI.Controllers
             _textService = textService;
         }
 
-        [HttpGet("html/init")]
+        [HttpGet("init")]
         public async Task<IActionResult> CreateHtmlText()
         {
             await _textService.CreateHtmlText();

@@ -16,6 +16,9 @@ namespace Philosopher_ServAPI.Core.Models.Entities.Game
         [ForeignKey("level_id")]
         public Level? Level { get; set; }
 
+        [ForeignKey("is_default")]
+        public bool IsDefault { get; set; } = false;
+
         [Column("name")]
         public required string Name { get; set; }
 

@@ -1,14 +1,12 @@
-using AutoMapper;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Philosopher_ServAPI.Application;
 using Philosopher_ServAPI.Core.Repositories;
 using Philosopher_ServAPI.Helpers;
 using Philosopher_ServAPI.Helpers.Exceptions;
 using Philosopher_ServAPI.Infrastructure;
 using Philosopher_ServAPI.Infrastructure.Repositories;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,6 +40,7 @@ builder.Services.AddAutoMapper(config =>
 {
     config.AddMaps(typeof(Program).Assembly);
 });
+builder.Services.AddSwaggerGen();
 
 //builder.Services.AddDbContext<SQLDBContext>(
 //    options =>
@@ -60,13 +59,17 @@ builder.Services.AddDbContext<SqlDbContext>(
 builder.Services.AddScoped<ICardRepository, CardRepository>();
 builder.Services.AddScoped<ILevelRepository, LevelRepository>();
 builder.Services.AddScoped<ITextSectionRepository, TextSectionRepository>();
+builder.Services.AddScoped<IGameProgressRepository, GameProgressRepository>();
+builder.Services.AddScoped<ILevelEndingRepository, LevelEndingRepository>();
 
 // Сервисы
 
-builder.Services.AddScoped<CardService>();
-builder.Services.AddScoped<LevelService>();
-builder.Services.AddScoped<TextSectionService>();
 builder.Services.AddScoped<TextService>();
+builder.Services.AddScoped<TextSectionService>();
+builder.Services.AddScoped<LevelService>();
+builder.Services.AddScoped<LevelEndingService>();
+builder.Services.AddScoped<GameProgressService>();
+builder.Services.AddScoped<CardService>();
 
 var app = builder.Build();
 
@@ -75,34 +78,40 @@ app.UseRouting();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi("/docs");
+    app.UseSwagger();
+    app.UseSwaggerUI();
+    app.MapOpenApi();
 }
 
 app.UseCors("test");
+
 
 app.UseExceptionHandler(builder =>
 {
     builder.Run(async context =>
     {
-        var err = context.Features.Get<IExceptionHandlerFeature>().Error;
+        var err = context.Features.Get<IExceptionHandlerFeature>()?.Error;
+        var res = JsonSerializer.Serialize(new {
+            details = err?.Message ?? ""
+        });
         context.Response.ContentType = "application/json";
 
         if (err is AlreadyExistsException existsException)
         {
             context.Response.StatusCode = 400;
-            await context.Response.WriteAsync(existsException.Message); 
+            await context.Response.WriteAsync(res);
             return;
         }
         else if (err is NotFoundException notFoundException)
         {
             //await context.Handler404ExceptionAsync(notFoundException);
             context.Response.StatusCode = 404;
-            await context.Response.WriteAsync(notFoundException.Message);
+            await context.Response.WriteAsync(res);
             return;
         }
 
         context.Response.StatusCode = 500;
-        await context.Response.WriteAsync(err.Message);
+        await context.Response.WriteAsync(res);
     });
 });
 

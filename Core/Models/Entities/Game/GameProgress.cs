@@ -39,10 +39,5 @@ namespace Philosopher_ServAPI.Core.Models.Entities.Game
 
         [Column("step_number")]
         public int StepNumber { get; set; } = 1;
-
-
-
-        //public Guid UserId { get; set; }
-        //public User? User { get; set; }
     }
 }

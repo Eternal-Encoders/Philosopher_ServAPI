@@ -12,8 +12,8 @@ namespace Philosopher_ServAPI.Core.Models.Entities.Game
         [Column("id")]
         public Guid Id { get; set; }
 
-        [Column("number")]
-        public int Number { get; set; }
+        //[Column("number")]
+        //public int Number { get; set; }
 
         [Column("name")]
         public string Name { get; set; } = String.Empty;

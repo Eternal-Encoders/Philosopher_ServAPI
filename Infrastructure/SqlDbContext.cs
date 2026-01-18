@@ -14,8 +14,6 @@ namespace Philosopher_ServAPI.Infrastructure
         public DbSet<GameProgress> GameProgresses { get; set; }
         public DbSet<LevelEnding> LevelEndings { get; set; }
         public DbSet<TextSection> TextSections { get; set; }
-        //Если нужно будет вести историю ходов
-        //public DbSet<GameStep> GameSteps { get; set; }
 
         public SqlDbContext(DbContextOptions<SqlDbContext> dbContextOptions,
             IWebHostEnvironment env) : base(dbContextOptions)

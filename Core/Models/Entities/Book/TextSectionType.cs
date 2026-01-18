@@ -8,6 +8,6 @@ namespace Philosopher_ServAPI.Core.Models.Entities.Book
     {
         [Key]
         [Column("name")]
-        public string Name { get; set; }
+        public required string Name { get; set; }
     }
 }

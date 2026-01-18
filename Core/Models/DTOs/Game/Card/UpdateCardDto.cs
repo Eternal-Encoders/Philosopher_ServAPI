@@ -1,13 +1,10 @@
-﻿using Philosopher_ServAPI.Core.Models.Entities.Game;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace Philosopher_ServAPI.Core.Models.DTOs.Game.Card
 {
-    public class PostCardDto
+    public class UpdateCardDto
     {
-        [Required]
         [JsonPropertyName("level_id")]
         public Guid? LevelId { get; set; }
 
@@ -17,41 +14,37 @@ namespace Philosopher_ServAPI.Core.Models.DTOs.Game.Card
 
         [Length(0, 1000)]
         [JsonPropertyName("text")]
-        public string Text { get; set; } = String.Empty;
+        public string? Text { get; set; }
 
         [Length(0, 256)]
         [JsonPropertyName("name")]
-        public string Name { get; set; } = String.Empty;
+        public string? Name { get; set; }
 
         [Length(0, 256)]
         [JsonPropertyName("first_choice_text")]
-        public string FirstChoiceText { get; set; } = String.Empty;
+        public string? FirstChoiceText { get; set; }
 
         [Length(0, 256)]
         [JsonPropertyName("second_choice_text")]
-        public string SecondChoiceText { get; set; } = String.Empty;
+        public string? SecondChoiceText { get; set; }
 
-        [Required]
         [Range(-100, +100)]
         [JsonPropertyName("first_hum_delta")]
-        public required int HumanDelta1 { get; set; }
+        public int? HumanDelta1 { get; set; }
 
-        [Required]
         [Range(-100, +100)]
         [JsonPropertyName("second_hum_delta")]
-        public required int HumanDelta2 { get; set; }
+        public int? HumanDelta2 { get; set; }
 
-        [Required]
         [Range(-100, +100)]
         [JsonPropertyName("first_rob_delta")]
-        public required int RobotDelta1 { get; set; }
+        public int? RobotDelta1 { get; set; }
 
-        [Required]
         [Range(-100, +100)]
         [JsonPropertyName("second_rob_delta")]
-        public required int RobotDelta2 { get; set; }
+        public int? RobotDelta2 { get; set; }
 
         [JsonPropertyName("image_link")]
-        public string ImageLink { get; set; } = String.Empty;
+        public string? ImageLink { get; set; }
     }
 }
