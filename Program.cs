@@ -1,11 +1,13 @@
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi;
 using Philosopher_ServAPI.Application;
 using Philosopher_ServAPI.Core.Repositories;
 using Philosopher_ServAPI.Helpers;
 using Philosopher_ServAPI.Helpers.Exceptions;
 using Philosopher_ServAPI.Infrastructure;
 using Philosopher_ServAPI.Infrastructure.Repositories;
+using System.Reflection;
 using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -40,7 +42,21 @@ builder.Services.AddAutoMapper(config =>
 {
     config.AddMaps(typeof(Program).Assembly);
 });
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(opt =>
+{
+    var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    opt.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+
+    opt.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        In = ParameterLocation.Header,
+        Description = "Please enter token",
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        BearerFormat = "JWT",
+        Scheme = "bearer"
+    });
+});
 
 //builder.Services.AddDbContext<SQLDBContext>(
 //    options =>
@@ -76,14 +92,17 @@ var app = builder.Build();
 app.UseRouting();
 app.UseCors("test");
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-    app.MapOpenApi();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
+app.MapOpenApi();
 
+// Configure the HTTP request pipeline.
+//if (app.Environment.IsDevelopment())
+//{
+//    app.UseSwagger();
+//    app.UseSwaggerUI();
+//    app.MapOpenApi();
+//}
 
 app.UseExceptionHandler(builder =>
 {
@@ -114,7 +133,7 @@ app.UseExceptionHandler(builder =>
     });
 });
 
-//app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
