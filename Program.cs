@@ -74,6 +74,7 @@ builder.Services.AddScoped<CardService>();
 var app = builder.Build();
 
 app.UseRouting();
+app.UseCors("test");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -82,8 +83,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
     app.MapOpenApi();
 }
-
-app.UseCors("test");
 
 
 app.UseExceptionHandler(builder =>
@@ -115,7 +114,7 @@ app.UseExceptionHandler(builder =>
     });
 });
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
