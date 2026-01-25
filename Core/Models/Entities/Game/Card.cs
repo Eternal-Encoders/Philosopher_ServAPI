@@ -4,18 +4,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Philosopher_ServAPI.Core.Models.Entities.Game
 {
-    [Table("card")]
+    [Table("cards")]
     public class Card: IAggregateRoot
     {
         [Key]
         [Column("id")]
         public Guid Id { get; set; }
 
+        [Required]
         [Column("level_id")]
         public Guid LevelId { get; set; }
-
-        [ForeignKey("level_id")]
-        public Level? Level { get; set; }
 
         [Column("number")]
         public int Number { get; set; }
@@ -46,5 +44,9 @@ namespace Philosopher_ServAPI.Core.Models.Entities.Game
 
         [Column("image_link")]
         public string ImageLink { get; set; } = string.Empty;
+
+
+        [ForeignKey("LevelId")]
+        public Level? Level { get; set; }
     }
 }

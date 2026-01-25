@@ -4,20 +4,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Philosopher_ServAPI.Core.Models.Entities.Game
 {
+    [Table("level_endings")]
     public class LevelEnding : IAggregateRoot
     {
         [Key]
         [Column("id")]
         public Guid Id { get; set; }
 
+        [Required]
         [Column("level_id")]
         public required Guid LevelId { get; set; }
-
-        [ForeignKey("level_id")]
-        public Level? Level { get; set; }
-
-        [ForeignKey("is_default")]
-        public bool IsDefault { get; set; } = false;
 
         [Column("name")]
         public required string Name { get; set; }
@@ -25,13 +21,20 @@ namespace Philosopher_ServAPI.Core.Models.Entities.Game
         [Column("description")]
         public string Description { get; set; } = string.Empty;
 
-        [Column("image_link")]
-        public string ImageLink { get; set; } = string.Empty;
+        [Column("is_default")]
+        public bool IsDefault { get; set; } = false;
 
         [Column("robot_condition")]
         public int? RobotCondition { get; set; }
 
         [Column("human_condition")]
         public int? HumanCondition { get; set; }
+
+        [Column("image_link")]
+        public string ImageLink { get; set; } = string.Empty;
+
+
+        [ForeignKey("LevelId")]
+        public Level? Level { get; set; }
     }
 }

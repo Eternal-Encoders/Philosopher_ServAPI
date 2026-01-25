@@ -4,32 +4,26 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Philosopher_ServAPI.Core.Models.Entities.Game
 {
+    [Table("game_progresses")]
     public class GameProgress : IAggregateRoot
     {
         [Key]
         [Column("id")]
         public Guid Id { get; set; }
 
+        [Required]
         [Column("level_id")]
         public required Guid LevelId { get; set; }
 
-        [ForeignKey("level_id")]
-        public Level? Level { get; set; }
-
-        [Column("game_ended")]
-        public bool GameEnded { get; set; } = false;
+        [Required]
+        [Column("last_card_id")]
+        public required Guid LastCardId { get; set; }
 
         [Column("level_ending_id")]
         public Guid? LevelEndingId { get; set; }
 
-        [ForeignKey("level_ending_id")]
-        public LevelEnding? LevelEnding { get; set; }
-
-        [Column("last_card_id")]
-        public required Guid CardId { get; set; }
-
-        [ForeignKey("last_card_id")]
-        public Card? Card { get; set; }
+        [Column("game_ended")]
+        public bool GameEnded { get; set; } = false;
 
         [Column("human")]
         public int Humanity { get; set; } = 50;
@@ -39,5 +33,15 @@ namespace Philosopher_ServAPI.Core.Models.Entities.Game
 
         [Column("step_number")]
         public int StepNumber { get; set; } = 1;
+
+
+        [ForeignKey("LevelId")]
+        public Level? Level { get; set; }
+
+        [ForeignKey("LevelEndingId")]
+        public LevelEnding? LevelEnding { get; set; }
+
+        [ForeignKey("LastCardId")]
+        public Card? LastCard { get; set; }
     }
 }

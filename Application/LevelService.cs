@@ -4,6 +4,7 @@ using Philosopher_ServAPI.Core.Models.DTOs.Game.Level;
 using Philosopher_ServAPI.Core.Models.Entities.Game;
 using Philosopher_ServAPI.Core.Repositories;
 using Philosopher_ServAPI.Helpers.Exceptions;
+using System;
 
 namespace Philosopher_ServAPI.Application
 {
@@ -61,6 +62,10 @@ namespace Philosopher_ServAPI.Application
 
         public async Task DeleteLevelById(Guid id)
         {
+            if (await _levelRep.CountAsync(gp => gp.Id == id) == 0)
+                throw new NotFoundException(
+                    $"Level with ID {id} is not found");
+
             await _levelRep.RemoveAsync(c => c.Id == id);
             await _levelRep.SaveChanges();
         }

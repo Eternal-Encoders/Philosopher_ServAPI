@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Philosopher_ServAPI.Core.Models.DTOs;
 using Philosopher_ServAPI.Core.Models.DTOs.Game.Card;
+using Philosopher_ServAPI.Core.Models.DTOs.Game.GameProgress;
 using Philosopher_ServAPI.Core.Models.DTOs.Game.Level;
 using Philosopher_ServAPI.Core.Models.Entities;
 using Philosopher_ServAPI.Core.Models.Entities.Game;
@@ -14,6 +15,7 @@ namespace Philosopher_ServAPI.Helpers
             CreateMap<User, GetUserDto>();
             CreateMap<PostCardDto, Card>();
             CreateMap<PostLevelDto, Level>();
+            CreateMap<GameProgress, GetGameProgressDto>();
         }
     }
 }

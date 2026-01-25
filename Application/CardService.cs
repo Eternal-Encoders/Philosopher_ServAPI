@@ -28,7 +28,7 @@ namespace Philosopher_ServAPI.Application
             if (await _cardRep.CountAsync(c => c.Number == cardDto.Number &&
                 c.LevelId == cardDto.LevelId) > 0)
             {
-                var lateCards = await _cardRep.ListAsync(c => c.Number > cardDto.Number &&
+                var lateCards = await _cardRep.ListAsync(c => c.Number >= cardDto.Number &&
                     c.LevelId == cardDto.LevelId);
 
                 if (lateCards.Count != 0)
