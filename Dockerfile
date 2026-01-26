@@ -25,7 +25,5 @@ RUN dotnet publish "./Philosopher_ServAPI.csproj" -c $BUILD_CONFIGURATION -o /ap
 FROM base AS final
 WORKDIR /app
 
-RUN apk add --no-cache sqlite sqlite-dev
-
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "Philosopher_ServAPI.dll"]
