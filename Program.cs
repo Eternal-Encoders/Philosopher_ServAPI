@@ -1,9 +1,9 @@
+using DotNetEnv;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi;
 using Philosopher_ServAPI.Application;
 using Philosopher_ServAPI.Core.Repositories;
-using Philosopher_ServAPI.Helpers;
 using Philosopher_ServAPI.Helpers.Exceptions;
 using Philosopher_ServAPI.Infrastructure;
 using Philosopher_ServAPI.Infrastructure.Repositories;
@@ -12,7 +12,10 @@ using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
+Env.Load();
+
 var configuration = builder.Configuration;
+builder.Configuration.AddEnvironmentVariables();
 
 builder.Services.AddCors(options =>
 {
@@ -58,17 +61,17 @@ builder.Services.AddSwaggerGen(opt =>
     });
 });
 
-//builder.Services.AddDbContext<SQLDBContext>(
-//    options =>
-//    {
-//        options.UseNpgsql(configuration.GetConnectionString("Postgres"));
-//    });
-
 builder.Services.AddDbContext<SqlDbContext>(
     options =>
     {
-        options.UseSqlite(configuration.GetConnectionString("SQLite"));
+        options.UseNpgsql(configuration["POSTGRES"]);
     });
+
+//builder.Services.AddDbContext<SqlDbContext>(
+//    options =>
+//    {
+//        options.UseSqlite(configuration.GetConnectionString("SQLite"));
+//    });
 
 // Репозитории
 
